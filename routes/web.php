@@ -14,14 +14,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    // return view('welcome');
-    return 'En';
-});
+    return view('homepage');
+    // return view('site.layout.master');
+})->name('homePage');
 
 Route::prefix('fa')->group(function () {
     Route::get('/', function () {
-        // return view('welcome');
-        return 'fa';
+        return view('homepage');
+        // return 'fa';
     });
 });
 
