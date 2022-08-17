@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,10 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('homepage');
-    // return view('site.layout.master');
-})->name('homePage');
+Route::get('/', [HomeController::class, 'index'])->name('homePage');
 
 Route::prefix('fa')->group(function () {
     Route::get('/', function () {
