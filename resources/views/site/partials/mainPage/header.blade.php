@@ -10,7 +10,7 @@
   <meta name="keywords" content="Add your business website keywords here" />
   <link href="favicon.ico" rel="icon" />
   <link rel="stylesheet" href="{{ asset('site/css/bootstrap.min.css') }}" />
-  <link rel="stylesheet" href="{{ asset('site/css/font-awesome.min.css') }}" />
+  {{-- <link rel="stylesheet" href="{{ asset('site/css/font-awesome.min.css') }}" /> --}}
   <link rel="stylesheet" href="{{ asset('site/css/owl.carousel.min.css') }}" />
   <link rel="stylesheet" href="{{ asset('site/css/owl.theme.default.min.css') }}" />
   <link rel="stylesheet" href="{{ asset('site/css/lightbox.min.css') }}" />

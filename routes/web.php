@@ -19,10 +19,9 @@ Route::get('/', [HomeController::class, 'index'])->name('homePage');
 Route::prefix('fa')->group(function () {
     Route::get('/', function () {
         return view('homepage');
-        // return 'fa';
     });
 });
 
 Route::prefix('admin')->group(function () {
-    
-}); 
+
+});

@@ -154,6 +154,7 @@
 
   <a href="#" class="scrollup"><i class="fas fa-arrow-circle-up"></i></a>
   <script src="{{ asset('site/js/jquery-3.5.1.min.js') }}"></script>
+  <script src="https://use.fontawesome.com/aed118e4c7.js"></script>
   <script src="{{ asset('site/js/popper.min.js') }}"></script>
   <script src="{{ asset('site/js/bootstrap.min.js') }}"></script>
   <script src="{{ asset('site/js/particles.min.js') }}"></script>
