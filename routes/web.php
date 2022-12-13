@@ -1,7 +1,14 @@
 <?php
 
+use App\Http\Controllers\admin\CategoriesController;
+use App\Http\Controllers\admin\PagesController;
+use App\Http\Controllers\admin\PortfoliosController;
+use App\Http\Controllers\admin\PostsController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\admin\LoginRegisterController;
+use App\Http\Controllers\admin\DashboardController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -16,12 +23,20 @@ use App\Http\Controllers\HomeController;
 
 Route::get('/', [HomeController::class, 'index'])->name('homePage');
 
-// Route::prefix('fa')->group(function () {
-//     Route::get('/', function () {
-//         return view('homepage');
-//     })->name('FaHomePage');
-// });
-
-Route::prefix('admin')->group(function () {
-
+Route::middleware(['guest'])->group(function () {
+    Route::get('login', [LoginRegisterController::class, 'login'])->name('login');
+    Route::post('login', [LoginRegisterController::class, 'signIn'])->name('signIn');
 });
+
+Route::middleware('auth')->group(function () {
+    Route::prefix('admin')->group(function () {
+        Route::get('dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
+
+        Route::resource('posts', PostsController::class);
+        Route::resource('category', CategoriesController::class);
+        Route::resource('pages', PagesController::class);
+        Route::resource('portfolio', PortfoliosController::class);
+    });
+});
+
+
