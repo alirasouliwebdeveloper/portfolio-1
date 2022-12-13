@@ -16,11 +16,11 @@ use App\Http\Controllers\HomeController;
 
 Route::get('/', [HomeController::class, 'index'])->name('homePage');
 
-Route::prefix('fa')->group(function () {
-    Route::get('/', function () {
-        return view('homepage');
-    });
-});
+// Route::prefix('fa')->group(function () {
+//     Route::get('/', function () {
+//         return view('homepage');
+//     })->name('FaHomePage');
+// });
 
 Route::prefix('admin')->group(function () {
 
