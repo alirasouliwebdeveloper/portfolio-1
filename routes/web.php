@@ -28,7 +28,7 @@ Route::middleware(['guest'])->group(function () {
     Route::post('login', [LoginRegisterController::class, 'signIn'])->name('signIn');
 });
 
-Route::middleware('auth')->group(function () {
+//Route::middleware('auth')->group(function () {
     Route::prefix('admin')->group(function () {
         Route::get('dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
 
@@ -37,6 +37,6 @@ Route::middleware('auth')->group(function () {
         Route::resource('pages', PagesController::class);
         Route::resource('portfolio', PortfoliosController::class);
     });
-});
+//});
 
 
