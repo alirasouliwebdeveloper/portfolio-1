@@ -19,7 +19,7 @@ class CreateCategoriesTable extends Migration
             $table->string('slug');
             $table->text('body');
             $table->boolean('status')->default(false); // 0 draft, 1 publish
-            $table->integer('type')->default(0); // 0 post, 1 portfolio
+            $table->String('type', 15)->default("Free"); // 0 post, 1 portfolio
             $table->timestamp('deleted_at')->nullable();
             $table->timestamps();
         });

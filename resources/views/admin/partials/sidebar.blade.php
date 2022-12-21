@@ -14,9 +14,11 @@
             <div class="image">
                 <img src="{{ asset('admin/img/user2-160x160.jpg') }}" class="img-circle elevation-2" alt="User Image">
             </div>
+            @auth()
             <div class="info">
-                <a href="{{ route('dashboard') }}" class="d-block">Ali Rasouli</a>
+                <a href="{{ route('dashboard') }}" class="d-block">{{ auth()->user()->name }}</a>
             </div>
+                @endauth
         </div>
 
         <!-- Sidebar Menu -->
@@ -56,6 +58,16 @@
                         <p>
                             Category
 {{--                            <span class="right badge badge-danger">New</span>--}}
+                        </p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{{ route('logout') }}" class="nav-link">
+                        <i class="nav-icon fas fa-desktop"></i>
+                        <p>
+                            logout
+                            {{--                            <span class="right badge badge-danger">New</span>--}}
                         </p>
                     </a>
                 </li>

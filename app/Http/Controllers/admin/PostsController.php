@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Http\Request;
 
@@ -15,8 +16,7 @@ class PostsController extends Controller
      */
     public function index()
     {
-        $posts = Post::where('status', 1)->with('user', 'category')->paginate(10);
-
+        $posts = Post::activePosts()->with('user', 'category')->paginate(10);
         return view('admin.post.list', compact('posts'));
     }
 
@@ -27,7 +27,12 @@ class PostsController extends Controller
      */
     public function create()
     {
-        return view('admin.post.create');
+        $cats = Category::activeCategories()->where('type', '=', 'Post')->get();
+        if (!count($cats) > 0) {
+            toastr()->error('No category found. You must add category first!');
+            return redirect()->route('posts.index');
+        }
+        return view('admin.post.create', compact('cats'));
     }
 
     /**
@@ -38,7 +43,13 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            '' => '',
+            '' => '',
+            '' => '',
+            '' => '',
+            '' => '',
+        ]);
     }
 
     /**

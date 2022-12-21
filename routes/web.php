@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\admin\LoginRegisterController;
 use App\Http\Controllers\admin\DashboardController;
+use UniSharp\LaravelFilemanager\Lfm;
 
 
 /*
@@ -26,9 +27,13 @@ Route::get('/', [HomeController::class, 'index'])->name('homePage');
 Route::middleware(['guest'])->group(function () {
     Route::get('login', [LoginRegisterController::class, 'login'])->name('login');
     Route::post('login', [LoginRegisterController::class, 'signIn'])->name('signIn');
+
+    Route::get('register', [LoginRegisterController::class, 'register'])->name('register');
+    Route::post('register', [LoginRegisterController::class, 'signUp'])->name('signUp');
 });
 
-//Route::middleware('auth')->group(function () {
+Route::middleware('auth')->group(function () {
+    Route::get('logout', [LoginRegisterController::class, 'logOut'])->name('logout');
     Route::prefix('admin')->group(function () {
         Route::get('dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
 
@@ -37,6 +42,10 @@ Route::middleware(['guest'])->group(function () {
         Route::resource('pages', PagesController::class);
         Route::resource('portfolio', PortfoliosController::class);
     });
+});
+
+//Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
+//    Lfm::routes();
 //});
 
 

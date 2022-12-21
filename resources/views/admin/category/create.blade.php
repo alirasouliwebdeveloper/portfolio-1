@@ -11,7 +11,8 @@
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
-                            <li class="breadcrumb-item active">Posts</li>
+                            <li class="breadcrumb-item"><a href="{{ route('category.index') }}">Category</a></li>
+                            <li class="breadcrumb-item active">edit category</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -25,7 +26,16 @@
                 <div class="card-header">
                     <h3 class="card-title">Add new category</h3>
                 </div>
-                <!-- /.card-header -->
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+            <!-- /.card-header -->
                 <form class="form-horizontal" method="post" action="{{ route('category.store') }}">
                     @csrf
                     <div class="card-body">
@@ -48,13 +58,14 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="CategoryTypeSelect" class="col-sm-2 col-form-label">Type
-                                        Category</label>
+                                    <label for="CategoryType" class="col-sm-2 col-form-label">
+                                        Type Category
+                                    </label>
                                     <div class="col-sm-10">
-                                        <select class="custom-select form-control-border" name="CategoryTypeSelect"
-                                                id="CategoryTypeSelect">
-                                            <option value="1">Post</option>
-                                            <option value="2">Portfolio</option>
+                                        <select class="custom-select form-control" name="CategoryType"
+                                                id="CategoryType">
+                                            <option selected="selected" value="Post">Post</option>
+                                            <option value="Portfolio">Portfolio</option>
                                         </select>
                                     </div>
                                 </div>

@@ -18,8 +18,8 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('email', 197)->unique();
             $table->string('password');
-            $table->integer('role')->unsigned()->default(1); // 1 admin - 2 user
-            $table->boolean('active')->default(false);
+            $table->String('role', 10)->default('User'); // User, Admin
+            $table->boolean('active')->default(true);
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamp('deleted_at')->nullable();
