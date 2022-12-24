@@ -17,6 +17,7 @@ class CreatePortfoliosTable extends Migration
             $table->id();
             $table->string('title');
             $table->string('slug');
+            $table->string('url')->nullable();
             $table->text('body');
             $table->boolean('status')->default(false); // 0 draft, 1 publish
             $table->foreignId('category_id')->references('id')->on('categories')->onDelete('cascade');

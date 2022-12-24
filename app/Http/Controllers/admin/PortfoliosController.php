@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Portfolio;
 use Illuminate\Http\Request;
 
 class PortfoliosController extends Controller
@@ -14,7 +15,8 @@ class PortfoliosController extends Controller
      */
     public function index()
     {
-        //
+        $ports = Portfolio::notDeletedPortfolios();
+        return $ports;
     }
 
     /**
