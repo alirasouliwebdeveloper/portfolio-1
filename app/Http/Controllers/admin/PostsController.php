@@ -5,7 +5,9 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Post;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PostsController extends Controller
 {
@@ -16,7 +18,7 @@ class PostsController extends Controller
      */
     public function index()
     {
-        $posts = Post::activePosts()->with('user', 'category')->paginate(10);
+        $posts = Post::NotDeletedPosts()->with('user', 'category')->paginate(10);
         return view('admin.post.list', compact('posts'));
     }
 
@@ -27,7 +29,7 @@ class PostsController extends Controller
      */
     public function create()
     {
-        $cats = Category::activeCategories()->where('type', '=', 'Post')->get();
+        $cats = Category::activePostCategories();
         if (!count($cats) > 0) {
             toastr()->error('No category found. You must add category first!');
             return redirect()->route('posts.index');
@@ -38,24 +40,33 @@ class PostsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
         $request->validate([
-            '' => '',
-            '' => '',
-            '' => '',
-            '' => '',
-            '' => '',
+            'inputTitle' => 'required',
+            'inputBody' => 'required',
+            'Category_id' => 'required'
         ]);
+        Post::create([
+            'title' => $request['inputTitle'],
+            'body' => $request['inputBody'],
+            'status' => $request['checkBoxActive'] == 'on' ? true : false,
+            'category_id' => $request['Category_id'],
+            'user_id' => Auth::user() ? Auth::id() : 1,
+            'counts' => 0,
+        ]);
+
+        toastr()->success('Post was created successfully!');
+        return redirect()->route('posts.index');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -66,34 +77,79 @@ class PostsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        //
+        $post = Post::find($id);
+        if ($post) {
+            $cats = Category::activePostCategories();
+            return view('admin.post.edit', compact('post', 'cats'));
+        }
+        toastr()->error('Can\'t find post! Please try again.');
+        return back();
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'inputTitle' => 'required',
+            'inputBody' => 'required',
+            'category_id' => 'required'
+        ]);
+        $post = Post::find($id);
+        if ($post) {
+            $post->update([
+                'title' => $request['inputTitle'],
+                'body' => $request['inputBody'],
+                'status' => $request['checkBoxActive'] == 'on' ? true : false,
+                'category_id' => $request['category_id'],
+                'updated_at' => Carbon::now()
+            ]);
+            toastr()->success('Post was updated successfully');
+            return redirect()->route('posts.index');
+        }
+        toastr()->error('Post was not found! Please try again.');
+        return back();
+
+
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        //
+        if ($this->existPost($id)) {
+            $post = $this->existPost($id);
+            $post->update([
+                'deleted_at' => Carbon::now()
+            ]);
+            toastr()->success('Post was deleted successfully');
+            return redirect()->route('posts.index');
+        }
+        toastr()->error('Post was not found! Please try again.');
+        return back();
+
+    }
+
+    public function existPost($id)
+    {
+        $post = Post::find($id);
+        if ($post) {
+            return $post;
+        }
+        return null;
     }
 }

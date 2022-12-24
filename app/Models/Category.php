@@ -64,4 +64,9 @@ class Category extends Model
                 :
                 '<span class="badge badge-warning">Draft</span>';
     }
+
+    public function scopeActivePostCategories($query)
+    {
+        return $query->where('deleted_at', null)->where('type', 'Post')->where('status', 1)->get();
+    }
 }

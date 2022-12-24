@@ -70,8 +70,6 @@
                                                            href="{{ route('category.edit', $cat->id) }}">
                                                             Edit
                                                         </a>
-                                                        {{-- todo: for delete most open modal --}}
-
                                                         <button class="btn btn-danger btn-sm ml-2 delete-modal"
                                                                 data-toggle="modal" data-target="#delete-modal"
                                                                 data-id="{{ $cat->id }}" data-name="{{ $cat->title }}"
@@ -113,8 +111,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-{{--                <form action="{{ route('category.destroy', 1) }}"--}}
-                <form action="admin/list"
+                <form action="#"
                       method="post" class="form-delete-modal">
                     @csrf
                     @method('DELETE')
@@ -138,7 +135,7 @@
     <script>
       $(document).on("click", ".delete-modal", function () {
         let categoryId = $(this).data('id');
-        let URL = "" + {{ url('') }} +"admin/category/" + categoryId;
+        let URL = "{{ request()->url() }}/" + categoryId;
         let categoryTitle = $(this).data('name');
         $(".form-delete-modal").attr('action', URL);
         $(".modal-body #catIdInModal").text(categoryTitle);

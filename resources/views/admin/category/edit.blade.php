@@ -6,13 +6,13 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Edit category: {{ $cat->title }}</h1>
+                        <h1 class="m-0">Show all posts</h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
                             <li class="breadcrumb-item"><a href="{{ route('category.index') }}">Category</a></li>
-                            <li class="breadcrumb-item active">Edit category</li>
+                            <li class="breadcrumb-item active">edit category</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -24,10 +24,10 @@
             <!-- Horizontal Form -->
             <div class="card card-info">
                 <div class="card-header">
-                    <h3 class="card-title">Edit category</h3>
+                    <h3 class="card-title">Add new category</h3>
                 </div>
                 @if ($errors->any())
-                    <div class="alert alert-danger m-2">
+                    <div class="alert alert-danger">
                         <ul>
                             @foreach ($errors->all() as $error)
                                 <li>{{ $error }}</li>
@@ -65,12 +65,10 @@
                                     <div class="col-sm-10">
                                         <select class="custom-select form-control" name="CategoryType"
                                                 id="CategoryType">
-                                            <option {{ $cat->type == 'Post' ? 'selected="selected"' : '' }} value="Post">
-                                                Post
-                                            </option>
-                                            <option {{ $cat->type == 'Portfolio' ? 'selected="selected"' : '' }} value="Portfolio">
-                                                Portfolio
-                                            </option>
+                                            <option {{ $cat->type == "Post" ? 'selected="selected"' : '' }}
+                                                    value="Post">Post</option>
+                                            <option {{ $cat->type == "Portfolio" ? 'selected="selected"' : '' }}
+                                                    value="Portfolio">Portfolio</option>
                                         </select>
                                     </div>
                                 </div>
@@ -78,11 +76,9 @@
                                     <div class="offset-sm-2 col-sm-10 custom-control custom-switch">
                                         <div class="form-check">
                                             <input type="checkbox" class="form-check-input custom-control-input"
-                                                   id="checkBoxActive"
-                                                   name="checkBoxActive" {{ $cat->status == 1 ? 'checked="checked"' : '' }}>
-                                            <label class="form-check-label custom-control-label" for="checkBoxActive">
-                                                Publish
-                                            </label>
+                                                   {{ $cat->status == 1  ? "checked='checked'" : '' }}
+                                                   id="checkBoxActive" name="checkBoxActive">
+                                            <label class="form-check-label custom-control-label" for="checkBoxActive">Publish</label>
                                         </div>
                                     </div>
                                 </div>

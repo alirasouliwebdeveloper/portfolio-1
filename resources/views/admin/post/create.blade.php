@@ -36,7 +36,7 @@
             @endif
             <!-- /.card-header -->
                 <form class="form-horizontal" method="post" action="{{ route('posts.store') }}">
-                    {{--                    @csrf--}}
+                    @csrf
                     <div class="card-body">
                         <div class="row">
                             <div class="col-sm-8">
@@ -49,20 +49,18 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="inputBody" class="col-sm-2 col-form-label">Body</label>
+                                    <label for="summernote" class="col-sm-2 col-form-label">Body</label>
                                     <div class="col-sm-10">
-                                        {{--                                        <textarea id="summernote-editor">Place </textarea>--}}
-                                        <div id="summernote">Place</div>
-                                        {{--                                        <div id="fm" style="height: 600px;"></div>--}}
+                                        <textarea id="summernote" name="inputBody">Place</textarea>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="Category" class="col-sm-2 col-form-label">
+                                    <label for="category_id" class="col-sm-2 col-form-label">
                                         Category
                                     </label>
                                     <div class="col-sm-10">
-                                        <select class="custom-select form-control" name="Category"
-                                                id="Category">
+                                        <select class="custom-select form-control" name="category_id"
+                                                id="category_id">
                                             @foreach($cats as $cat)
                                                 <option value="{{ $cat->id }}">{{ $cat->title }}</option>
                                             @endforeach
@@ -82,7 +80,7 @@
                                 </div>
                                 <div>
                                     <button type="submit" class="btn btn-info">Save</button>
-                                    <a href="{{ route('category.index') }}"
+                                    <a href="{{ route('posts.index') }}"
                                        class="btn btn-default float-right">Cancel</a>
                                 </div>
                             </div>
