@@ -15,36 +15,17 @@
                 <img src="{{ asset('admin/img/user2-160x160.jpg') }}" class="img-circle elevation-2" alt="User Image">
             </div>
             @auth()
-            <div class="info">
-                <a href="{{ route('dashboard') }}" class="d-block">{{ auth()->user()->name }}</a>
-            </div>
-                @endauth
+                <div class="info">
+                    <a href="{{ route('dashboard') }}" class="d-block">{{ auth()->user()->name }}</a>
+                </div>
+            @endauth
         </div>
 
         <!-- Sidebar Menu -->
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                <!-- Add icons to the links using the .nav-icon class
-                     with font-awesome or any other icon font library -->
-{{--                <li class="nav-item menu-open">--}}
-{{--                    <a href="#" class="nav-link active">--}}
-{{--                        <i class="nav-icon fas fa-tachometer-alt"></i>--}}
-{{--                        <p>--}}
-{{--                            Posts--}}
-{{--                            <i class="right fas fa-angle-left"></i>--}}
-{{--                        </p>--}}
-{{--                    </a>--}}
-{{--                    <ul class="nav nav-treeview">--}}
-{{--                        <li class="nav-item">--}}
-{{--                            <a href="{{ route('posts.index') }}" class="nav-link active">--}}
-{{--                                <i class="far fa-circle nav-icon"></i>--}}
-{{--                                <p>Posts</p>--}}
-{{--                            </a>--}}
-{{--                        </li>--}}
-{{--                    </ul>--}}
-{{--                </li>--}}
                 <li class="nav-item">
-                    <a href="{{ route('posts.index') }}" class="nav-link">
+                    <a href="{{ route('posts.index') }}" class="nav-link" id="menu-post">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
                             Post
@@ -53,7 +34,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('category.index') }}" class="nav-link">
+                    <a href="{{ route('category.index') }}" class="nav-link" id="menu-category">
                         <i class="nav-icon fas fa-th"></i>
                         <p>
                             Category
@@ -61,7 +42,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('portfolio.index') }}" class="nav-link">
+                    <a href="{{ route('portfolio.index') }}" class="nav-link" id="menu-portfolio">
                         <i class="nav-icon fas fa-won-sign"></i>
                         <p>
                             Portfolio
@@ -70,11 +51,18 @@
                 </li>
 
                 <li class="nav-item">
+                    <a href="{{ route('admin.gallery') }}" class="nav-link" id="menu-gallery">
+                        <i class="nav-icon fas fa-desktop"></i>
+                        <p>
+                            Gallery
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="{{ route('logout') }}" class="nav-link">
                         <i class="nav-icon fas fa-desktop"></i>
                         <p>
                             logout
-                            {{--                            <span class="right badge badge-danger">New</span>--}}
                         </p>
                     </a>
                 </li>

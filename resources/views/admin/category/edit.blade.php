@@ -99,3 +99,13 @@
         <!-- /.card -->
     </div>
 @endsection
+
+
+@section('footerScripts')
+    <script>
+      $(".nav-item > a").each(function () {
+        $(this).removeClass("active");
+      });
+      $("#menu-category").addClass("active");
+    </script>
+@endsection

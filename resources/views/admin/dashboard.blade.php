@@ -1,4 +1,5 @@
 @extends('admin.layout.master')
+@include('admin.partials.pageTitle', ['title' => 'Dashboard'])
 
 @section('content')
     <!-- Content Wrapper. Contains page content -->

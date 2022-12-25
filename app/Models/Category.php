@@ -39,6 +39,11 @@ class Category extends Model
         return $this->hasMany(Post::class);
     }
 
+    public function portfolios()
+    {
+        return $this->hasMany(Portfolio::class);
+    }
+
     public function scopeActiveCategories($query)
     {
         return $query->where('deleted_at', null);
@@ -68,5 +73,10 @@ class Category extends Model
     public function scopeActivePostCategories($query)
     {
         return $query->where('deleted_at', null)->where('type', 'Post')->where('status', 1)->get();
+    }
+
+    public function scopeActivePortfolioCategories($query)
+    {
+        return $query->where('deleted_at', null)->where('type', 'Portfolio')->where('status', 1)->get();
     }
 }

@@ -1,5 +1,5 @@
 @extends('admin.layout.master')
-
+@include('admin.partials.pageTitle', ['title' => 'List of categories'])
 @section('content')
     <div class="content-wrapper">
         <div class="content-header">
@@ -89,6 +89,7 @@
                                         {{ $categories->links('admin.partials.admin-pagination') }}
                                     </div>
                                 @else
+                                    <p class="text-danger p-3">No category found</p>
                                 @endif
                             </div>
                             <!-- /.card-body -->
@@ -140,5 +141,11 @@
         $(".form-delete-modal").attr('action', URL);
         $(".modal-body #catIdInModal").text(categoryTitle);
       });
+
+      $(".nav-item > a").each(function () {
+        $(this).removeClass("active");
+      });
+      $("#menu-category").addClass("active");
+
     </script>
 @endsection

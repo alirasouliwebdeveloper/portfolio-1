@@ -38,12 +38,12 @@ class Post extends Model
 
     public function scopeActivePosts($query)
     {
-        return $query->where('deleted_at', null)->where('active', 1);
+        return $query->where('deleted_at', null)->where('active', 1)->latest();
     }
 
     public function scopeNotDeletedPosts($query)
     {
-        return $query->where('deleted_at', null);
+        return $query->where('deleted_at', null)->latest();
     }
 
     public function user()

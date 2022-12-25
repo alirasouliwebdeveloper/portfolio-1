@@ -143,5 +143,10 @@
       function fmSetLink(url) {
         $('#summernote').summernote('insertImage', url);
       };
+
+      $(".nav-item > a").each(function () {
+        $(this).removeClass("active");
+      });
+      $("#menu-post").addClass("active");
     </script>
 @endsection

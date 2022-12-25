@@ -1,4 +1,5 @@
 @extends('admin.layout.master')
+@include('admin.partials.pageTitle', ['title' => 'List of posts'])
 
 @section('content')
     <div class="content-wrapper">
@@ -75,6 +76,9 @@
                                         @endforeach
                                         </tbody>
                                     </table>
+                                    <div class="card-footer clearfix">
+                                        {{ $categories->links('admin.partials.admin-pagination') }}
+                                    </div>
                                 @else
                                     <p class="text-danger p-3">No posts found</p>
                                 @endif
@@ -127,5 +131,10 @@
         $(".form-delete-modal").attr('action', URL);
         $(".modal-body #catIdInModal").text(postTitle);
       });
+
+      $(".nav-item > a").each(function () {
+        $(this).removeClass("active");
+      });
+      $("#menu-post").addClass("active");
     </script>
 @endsection

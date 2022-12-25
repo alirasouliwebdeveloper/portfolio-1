@@ -19,8 +19,13 @@ class CreatePortfoliosTable extends Migration
             $table->string('slug');
             $table->string('url')->nullable();
             $table->text('body');
+            $table->string('image');
+            $table->dateTime('start_date')->nullable();
+            $table->dateTime('end_date')->nullable();
+            $table->string('customer_name')->nullable();
             $table->boolean('status')->default(false); // 0 draft, 1 publish
             $table->foreignId('category_id')->references('id')->on('categories')->onDelete('cascade');
+            $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamp('deleted_at')->nullable();
             $table->timestamps();
         });

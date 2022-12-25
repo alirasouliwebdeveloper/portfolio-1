@@ -41,6 +41,8 @@ Route::middleware('auth')->group(function () {
         Route::resource('category', CategoriesController::class);
         Route::resource('pages', PagesController::class);
         Route::resource('portfolio', PortfoliosController::class);
+
+        Route::get('/fileManager', [DashboardController::class, 'gallery'])->name('admin.gallery');
     });
 });
 
