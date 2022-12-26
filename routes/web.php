@@ -4,6 +4,7 @@ use App\Http\Controllers\admin\CategoriesController;
 use App\Http\Controllers\admin\PagesController;
 use App\Http\Controllers\admin\PortfoliosController;
 use App\Http\Controllers\admin\PostsController;
+use App\Http\Controllers\admin\SkillsController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\admin\LoginRegisterController;
@@ -32,15 +33,16 @@ Route::middleware(['guest'])->group(function () {
     Route::post('register', [LoginRegisterController::class, 'signUp'])->name('signUp');
 });
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'web'])->group(function () {
     Route::get('logout', [LoginRegisterController::class, 'logOut'])->name('logout');
     Route::prefix('admin')->group(function () {
         Route::get('dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
 
-        Route::resource('posts', PostsController::class);
+        Route::resource('post', PostsController::class);
         Route::resource('category', CategoriesController::class);
-        Route::resource('pages', PagesController::class);
+        Route::resource('page', PagesController::class);
         Route::resource('portfolio', PortfoliosController::class);
+        Route::resource('skill', SkillsController::class);
 
         Route::get('/fileManager', [DashboardController::class, 'gallery'])->name('admin.gallery');
     });

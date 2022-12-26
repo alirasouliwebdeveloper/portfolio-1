@@ -25,7 +25,7 @@
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-item">
-                    <a href="{{ route('posts.index') }}" class="nav-link" id="menu-post">
+                    <a href="{{ route('post.index') }}" class="nav-link" id="menu-post">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
                             Post
@@ -51,6 +51,15 @@
                 </li>
 
                 <li class="nav-item">
+                    <a href="{{ route('skill.index') }}" class="nav-link" id="menu-skill">
+                        <i class="nav-icon fas fa-cogs"></i>
+                        <p>
+                            Skills
+                        </p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
                     <a href="{{ route('admin.gallery') }}" class="nav-link" id="menu-gallery">
                         <i class="nav-icon fas fa-desktop"></i>
                         <p>
@@ -58,6 +67,7 @@
                         </p>
                     </a>
                 </li>
+
                 <li class="nav-item">
                     <a href="{{ route('logout') }}" class="nav-link">
                         <i class="nav-icon fas fa-desktop"></i>

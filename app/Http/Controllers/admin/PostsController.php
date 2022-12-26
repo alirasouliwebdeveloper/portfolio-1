@@ -32,7 +32,7 @@ class PostsController extends Controller
         $cats = Category::activePostCategories();
         if (!count($cats) > 0) {
             toastr()->error('No category found. You must add category first!');
-            return redirect()->route('posts.index');
+            return redirect()->route('post.index');
         }
         return view('admin.post.create', compact('cats'));
     }
@@ -60,7 +60,7 @@ class PostsController extends Controller
         ]);
 
         toastr()->success('Post was created successfully!');
-        return redirect()->route('posts.index');
+        return redirect()->route('post.index');
     }
 
     /**
@@ -115,7 +115,7 @@ class PostsController extends Controller
                 'updated_at' => Carbon::now()
             ]);
             toastr()->success('Post was updated successfully');
-            return redirect()->route('posts.index');
+            return redirect()->route('post.index');
         }
         toastr()->error('Post was not found! Please try again.');
         return back();
@@ -137,7 +137,7 @@ class PostsController extends Controller
                 'deleted_at' => Carbon::now()
             ]);
             toastr()->success('Post was deleted successfully');
-            return redirect()->route('posts.index');
+            return redirect()->route('post.index');
         }
         toastr()->error('Post was not found! Please try again.');
         return back();

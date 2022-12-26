@@ -11,7 +11,7 @@
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
-                            <li class="breadcrumb-item"><a href="{{ route('posts.index') }}">Post</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('post.index') }}">Post</a></li>
                             <li class="breadcrumb-item active">edit post</li>
                         </ol>
                     </div><!-- /.col -->
@@ -36,7 +36,7 @@
                     </div>
             @endif
             <!-- /.card-header -->
-                <form class="form-horizontal" method="post" action="{{ route('posts.update', $post->id) }}">
+                <form class="form-horizontal" method="post" action="{{ route('post.update', $post->id) }}">
                     @csrf
                     @method('PUT')
                     <div class="card-body">
@@ -83,7 +83,7 @@
                                 </div>
                                 <div>
                                     <button type="submit" class="btn btn-info">Edit</button>
-                                    <a href="{{ route('posts.index') }}"
+                                    <a href="{{ route('post.index') }}"
                                        class="btn btn-default float-right">Cancel</a>
                                 </div>
                             </div>

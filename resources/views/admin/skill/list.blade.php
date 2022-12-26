@@ -1,5 +1,5 @@
 @extends('admin.layout.master')
-@include('admin.partials.pageTitle', ['title' => 'List of posts'])
+@include('admin.partials.pageTitle', ['title' => 'List of skills'])
 
 @section('content')
     <div class="content-wrapper">
@@ -7,12 +7,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Show all posts</h1>
+                        <h1 class="m-0">List Of Skills</h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
-                            <li class="breadcrumb-item active">Posts</li>
+                            <li class="breadcrumb-item active">Skills</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -26,61 +26,72 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">All posts are here</h3>
+                                {{--                                <h3 class="card-title">List Of Categories</h3>--}}
                                 <div class="card-tools">
                                     <div class="input-group input-group-sm">
-                                        <a class="btn btn-success btn-sm" href="{{ route('post.create') }}">Add new
-                                            Post</a>
+                                        <a class="btn btn-success btn-sm" href="{{ route('skill.create') }}">Add new
+                                            skill</a>
                                     </div>
                                 </div>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body table-responsive p-0">
-                                @if(count($posts) > 0)
+                                @if ($errors->any())
+                                    <div class="alert alert-danger">
+                                        <ul>
+                                            @foreach ($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                @endif
+                                @if(count($skills) > 0)
                                     <table class="table table-hover text-nowrap">
                                         <thead>
                                         <tr>
-                                            <th>Row</th>
-                                            <th>Title</th>
-                                            <th>Counts</th>
+                                            <th>Meta name</th>
+                                            <th>Meta value</th>
                                             <th>Author</th>
-                                            <th>Category</th>
+                                            <th>Position</th>
                                             <th>Status</th>
                                             <th>Action</th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        @foreach($posts as $post)
+                                        @foreach($skills as $skill)
                                             <tr>
-                                                <td style="width: 70px">{{ $loop->iteration }}</td>
-                                                <td>{{ $post->title }}</td>
-                                                <td style="width: 90px">{{ $post->counts }}</td>
-                                                <td style="width: 150px">{{ $post->user->name }}</td>
-                                                <td style="width: 150px">{{ $post->category->title }}</td>
-                                                <td style="width: 90px">{!! $post->returnStatus($post->status) !!}</td>
+                                                <td>{{ $skill->meta_name }}</td>
+                                                <td>{{ $skill->meta_value }}</td>
+                                                <td style="width: 90px">{!! $skill->user->name !!}</td>
+                                                <td style="width: 90px">{{ $skill->position }}</td>
+                                                <td style="width: 90px">{!! $skill->returnStatus($skill->status) !!}</td>
                                                 <td style="width: 150px">
                                                     <div class="d-flex">
                                                         <a class="btn btn-warning btn-sm"
-                                                           href="{{ route('post.edit', $post->id) }}">
+                                                           href="{{ route('skill.edit', $skill->id) }}">
                                                             Edit
                                                         </a>
                                                         <button class="btn btn-danger btn-sm ml-2 delete-modal"
                                                                 data-toggle="modal" data-target="#delete-modal"
-                                                                data-id="{{ $post->id }}" data-name="{{ $post->title }}"
+                                                                data-id="{{ $skill->id }}"
+                                                                data-name="{{ $skill->meta_name }}"
                                                                 type="button">
                                                             Delete
                                                         </button>
+
                                                     </div>
+
+
                                                 </td>
                                             </tr>
                                         @endforeach
                                         </tbody>
                                     </table>
                                     <div class="card-footer clearfix">
-                                        {{ $categories->links('admin.partials.admin-pagination') }}
+                                        {{ $skills->links('admin.partials.admin-pagination') }}
                                     </div>
                                 @else
-                                    <p class="text-danger p-3">No posts found</p>
+                                    <p class="text-danger p-3">No skills found</p>
                                 @endif
                             </div>
                             <!-- /.card-body -->
@@ -97,7 +108,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Delete Category</h4>
+                    <h4 class="modal-title">Delete Skill</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -107,7 +118,7 @@
                     @csrf
                     @method('DELETE')
                     <div class="modal-body">
-                        <p>Are you sure to delete post "<span id="catIdInModal"></span>"?</p>
+                        <p>Are you sure to delete skill "<span id="catIdInModal"></span>"?</p>
                     </div>
                     <div class="modal-footer justify-content-between">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -120,21 +131,23 @@
         <!-- /.modal-dialog -->
     </div>
     <!-- /.modal -->
-@stop
+@endsection
+
 
 @section('footerScripts')
     <script>
       $(document).on("click", ".delete-modal", function () {
-        let postId = $(this).data('id');
-        let URL = "{{ request()->url() }}/" + postId;
-        let postTitle = $(this).data('name');
+        let skillId = $(this).data('id');
+        let URL = "{{ request()->url() }}/" + skillId;
+        let skillTitle = $(this).data('name');
         $(".form-delete-modal").attr('action', URL);
-        $(".modal-body #catIdInModal").text(postTitle);
+        $(".modal-body #catIdInModal").text(skillTitle);
       });
 
       $(".nav-item > a").each(function () {
         $(this).removeClass("active");
       });
-      $("#menu-post").addClass("active");
+      $("#menu-skill").addClass("active");
+
     </script>
 @endsection
