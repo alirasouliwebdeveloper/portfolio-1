@@ -33,7 +33,7 @@ Route::middleware(['guest'])->group(function () {
     Route::post('register', [LoginRegisterController::class, 'signUp'])->name('signUp');
 });
 
-Route::middleware(['auth', 'web'])->group(function () {
+// Route::middleware(['auth', 'web'])->group(function () {
     Route::get('logout', [LoginRegisterController::class, 'logOut'])->name('logout');
     Route::prefix('admin')->group(function () {
         Route::get('dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
@@ -46,10 +46,8 @@ Route::middleware(['auth', 'web'])->group(function () {
 
         Route::get('/fileManager', [DashboardController::class, 'gallery'])->name('admin.gallery');
     });
-});
+// });
 
 //Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
 //    Lfm::routes();
 //});
-
-

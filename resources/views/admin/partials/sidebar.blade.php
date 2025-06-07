@@ -63,7 +63,7 @@
                     <a href="{{ route('admin.gallery') }}" class="nav-link" id="menu-gallery">
                         <i class="nav-icon fas fa-desktop"></i>
                         <p>
-                            Gallery
+                            File manager
                         </p>
                     </a>
                 </li>
